@@ -1,8 +1,5 @@
 import discord
 from discord.ext import commands
-from discord.utils import get
-import re
-
 
 linkRegrex = re.compile(r"http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
 
@@ -11,7 +8,7 @@ with open("token.txt", "r") as f: token = f.read()[:-1]
 
 @client.event
 async def on_ready():
-    print("uLink Origin Online")
+    print("PC Protector Online")
     await client.change_presence(activity=discord.Activity(name="Protecting the campus enviorment"))
     client.help_command = commands.DefaultHelpCommand(no_category='Commands')
 
@@ -22,7 +19,7 @@ async def on_message(message):
     link = linkRegrex.search(message.content)
     if link is not None:
         if message.guild.get_role(627889209302319114) not in message.author.roles:
-            await message.channel.send(f"Brooooooooooo... {message.author.mention} that link looks hella susPISious brooooo\nStrait up never click {link.group()} Brooooooooooo")
+            await message.channel.send(f"Brooooooooooo... {message.author.mention} that link looks hella susPISious brooooo\n{message.author.mention} is a scammer brooooos")
             channel = client.get_channel(628290881270579210)
             await channel.send(f"{message.author.mention} posted {link.group()} in {message.channel}")
 
@@ -36,6 +33,5 @@ async def ping(ctx):
 @client.command(aliases=["purge"])
 async def clear(ctx, amount=10):
     await ctx.channel.purge(limit=amount)
-
 
 client.run(token)
